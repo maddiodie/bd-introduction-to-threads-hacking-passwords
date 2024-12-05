@@ -19,12 +19,17 @@ public class PasswordCracker {
         long startTime = System.currentTimeMillis();
 
         final List<String> commonPasswords = PasswordUtil.readCommonPasswords();
+        // list of passwords to hash
+        // loaded from a file defined in PasswordUtil
 
-        final Map<String, String> passwordToHashes = PasswordHasher.generateAllHashes(commonPasswords);
+        final Map<String, String> passwordToHashes =
+                PasswordHasher.generateAllHashes(commonPasswords);
+        // call generateAllHashes() in the PasswordHasher with the list of passwords
 
         PasswordHasher.writePasswordsAndHashes(passwordToHashes);
 
-        final Multimap<String, String> hackedHashToUserIds = PasswordUtil.readHackedDatabase();
+        final Multimap<String, String> hackedHashToUserIds =
+                PasswordUtil.readHackedDatabase();
 
         int count = 0;
         for (Map.Entry<String, String> passwordToHash : passwordToHashes.entrySet()) {
